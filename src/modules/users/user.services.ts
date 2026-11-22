@@ -1,14 +1,18 @@
 import { pool } from "../../db";
 import { IUpdateUser, Iuser } from "./user.interface";
+import bcrypt from "bcryptjs";
 
 const createUserIntoDB = async (payLoad: Iuser) => {
   const { name, email, password, age } = payLoad;
+  const hash = await bcrypt.hash(password,10); //Converts the plain-text password into a secure hash using bcrypt.
+
   const result = await pool.query(
     `
     INSERT INTO users(name,email,password,age) VALUES($1,$2,$3,$4) RETURNING *
     `,
-    [name, email, password, age],
+    [name, email, hash, age],
   );
+  delete result.rows[0].password;//to prevent showing password (even in the hash form) from the response
   return result;
 };
 
