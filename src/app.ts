@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import { userRoute } from "./modules/users/user.routes";
 import { profileRouter } from "./modules/profile/profile.routes";
+import { authRoute } from "./modules/auth/auth.routes";
 
 const app: Application = express(); //creating the backend server
 
@@ -33,5 +34,6 @@ user.routes.ts ->
 //connecting the 'profile' feature to the main router 
 app.use("/api/v1/profiles", profileRouter);
 
+app.use("/api/v1/auth",authRoute)
 
 export default app;
