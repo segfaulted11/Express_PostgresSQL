@@ -3,4 +3,6 @@ export interface Iuser{
     email : string,
     password : string,
     age : number,
+    is_active? :boolean
 }
+export type IUpdateUser = Partial<Iuser>;
