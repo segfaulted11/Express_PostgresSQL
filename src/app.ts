@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import { userRoute } from "./modules/users/user.routes";
+import { profileRouter } from "./modules/profile/profile.routes";
 
 const app: Application = express(); //creating the backend server
 
@@ -22,8 +23,15 @@ app.get("/", (req: Request, res: Response) => {
 //handle request/ response -> user.controller.ts
 //hanlde database query logic ->  user.service.ts
 
-//connecting the sub-routers w the main router
+//connecting the sub-routers of the 'users' feature w the main router
 app.use("/v1/api/users",userRoute);
+
+/* how this is connected :
+user.routes.ts -> 
+*/
+
+//connecting the 'profile' feature to the main router 
+app.use("/api/v1/profiles", profileRouter);
 
 
 export default app;

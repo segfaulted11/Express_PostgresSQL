@@ -1,5 +1,4 @@
 import app from "./app";
-import config from "./config";
 import { initDatabase } from "./db";
 const port = 8000;
 
