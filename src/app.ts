@@ -2,12 +2,24 @@ import express, { Application, Request, Response } from "express";
 import { userRoute } from "./modules/users/user.routes";
 import { profileRouter } from "./modules/profile/profile.routes";
 import { authRoute } from "./modules/auth/auth.routes";
+import fs  from "fs";
+import logger from "./middleware/logger";
 
 const app: Application = express(); //creating the backend server
 
 // Middleware
 app.use(express.json());
+app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
+
+/*
+Logger middleware is used to keep track of incoming requests to a server. In Express.js, it helps us monitor what is happening in our application.
+Think of logger middleware as a record keeper for your server. It keeps a history of incoming requests so developers can monitor and debug their applications easily.
+*/
+
+// Custom Logger middleware to track incoming requests
+app.use(logger);
+
 
 // root Route
 app.get("/", (req: Request, res: Response) => {
@@ -18,6 +30,8 @@ app.get("/", (req: Request, res: Response) => {
     message: "this is root route",
   });
 });
+
+
 
 //*********modular pattern******** ->
 //handle router -> user.router.ts
